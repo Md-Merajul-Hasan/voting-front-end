@@ -1,48 +1,54 @@
-import React from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import React, { useContext } from "react";
+import { AuthContext } from "./AuthProvider";
 
 const CandidateList = () => {
-  const candidates_string = useLoaderData();
-  const candidates = JSON.parse(candidates_string);
-  console.log(candidates);
+  const { userdata } = useContext(AuthContext);
 
-  const handleAddMore =()=>{
 
-  }
-  const handleStartVote = ()=>{
-    
+  if (!userdata) {
+    return null;
   }
 
   return (
     <div>
-      <p className="text-center text-3xl font-bold text-blue-600">
-        Candidates: {candidates.length}
-      </p>
-      <div className="w-11/12 mx-auto">
-        {candidates.map((candidate) => {
-          return (
-            <div className="flex justify-around items-center space-y-12 ">
-              <div className="w-28 h-24">
-                <img src={candidate.candidate_photo} alt="" />
+      <Navbar></Navbar>
+      <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-center text-3xl font-extrabold text-blue-600 mb-8">
+            Candidate List
+          </h1>
+          <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            {candidates.map((candidate, index) => (
+              <div
+                key={index}
+                className="border-b border-gray-200 last:border-b-0"
+              >
+                <div className="px-4 py-5 sm:p-6 flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <img
+                      className="h-16 w-16 object-contain"
+                      src={candidate.candidate_photo}
+                      alt={candidate.candidate_name}
+                    />
+                    <div>
+                      <h3 className="text-lg font-medium text-gray-900">
+                        {candidate.candidate_name}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        ID: {candidate.candidate_id}
+                      </p>
+                    </div>
+                  </div>
+                  <img
+                    className="h-12 w-12 object-contain"
+                    src={candidate.candidate_mark}
+                    alt={`${candidate.candidate_name}'s mark`}
+                  />
+                </div>
               </div>
-              <div className="w-28 h-24">
-                <img src={candidate.candidate_mark} alt="" />
-              </div>
-              <div className="text-start">
-                <p className="text-2xl font-bold text-blue-600">
-                  {candidate.candidate_name}
-                </p>
-                <p className="text-lg font-bold">{candidate.candidate_id}</p>
-              </div>
-            </div>
-          );
-        })}
-        <button onClick={handleAddMore} className="btn btn-primary w-full m-4">
-          <Link to='/addCandidate'>Add More Candidate</Link>
-        </button>
-        <button onClick={handleStartVote} className="btn btn-primary w-full m-4">
-          <Link to='/vote'>Start Vote</Link>
-        </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
