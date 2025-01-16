@@ -9,6 +9,7 @@ const Navbar = () => {
         <ul className="flex space-x-4">
           <li><Link to="/vote" className="text-white hover:text-gray-300">Vote</Link></li>
           <li><Link to="/liveResult" className="text-white hover:text-gray-300">Live Result</Link></li>
+          <li><Link to="/checkVote" className="text-white hover:text-gray-300">Check Your Vote</Link></li>
           <li><Link to="/adminDashboard" className="text-white hover:text-gray-300">Admin Dashboard</Link></li>
         </ul>
       </div>

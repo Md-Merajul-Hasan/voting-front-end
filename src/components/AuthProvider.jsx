@@ -64,6 +64,7 @@ const AuthProvider = ({ children }) => {
       value={{
         user,
         isAdmin,
+        setVotes,
         setIsAdmin,
         login,
         logout,

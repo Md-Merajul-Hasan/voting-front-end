@@ -1,17 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './AuthProvider';
-import { useNavigate } from 'react-router-dom';
 
 const CheckVote = () => {
   const [nid, setNid] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { votes, candidates, registeredUsers, loggedInUser, login } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { votes, candidates, registerUsers, loggedInUser, login } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const user = registeredUsers.find(u => u.nid === nid && u.password === password);
+    const objectToCheck = {id: nid, password: password}
+    // const user = registerUsers?.find(u => u.nid == nid && u.password == password);
+    const user = registerUsers.some(obj => JSON.stringify(obj) === JSON.stringify(objectToCheck))
     if (user) {
       login(user);
       setMessage('Login successful. You can now check your vote.');

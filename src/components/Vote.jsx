@@ -4,6 +4,8 @@ import Navbar from "./Navbar";
 
 const Vote = () => {
   const {
+    votes,
+    setVotes,
     candidates,
     isVotingStarted,
     castVote,
@@ -37,6 +39,7 @@ const Vote = () => {
   const handleVoted = (candidate) => {
     if (isNIDValidated && castVote(nid, candidate.candidate_id)) {
       setSelectedCandidate(candidate);
+      setVotedNID([...votedNID, nid]);
       setMessage(
         `You have successfully voted for ${candidate.candidate_name}.`
       );
@@ -46,7 +49,7 @@ const Vote = () => {
       setIsRegistered(false);
       setSkipped(false);
       setIsNIDValidated(false);
-      setVotedNID([...votedNID, nid]); // Add the voted NID to the votedNID state
+       // Add the voted NID to the votedNID state
     } else {
       setMessage(
         "You have already voted or there was an error casting your vote."
